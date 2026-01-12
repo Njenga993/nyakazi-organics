@@ -12,16 +12,27 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { cartItems, totalItems, removeFromCart, clearCart, updateQuantity } = useCart();
+  const { cartItems, bundleItems, removeFromCart, removeBundleFromCart, clearCart, updateQuantity, updateBundleQuantity } = useCart();
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0) + 
+              bundleItems.reduce((sum, bundle) => sum + bundle.price * bundle.quantity, 0);
+  
+  // Calculate total items including bundles
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0) + 
+                   bundleItems.reduce((sum, bundle) => sum + bundle.quantity, 0);
+  
   const whatsappNumber = '+254712345678';
 
   const generateWhatsAppMessage = () => {
     const itemsText = cartItems
       .map((item) => `${item.name} x ${item.quantity} = Ksh ${item.price * item.quantity}`)
       .join('\n');
-    return `Hello! I want to order the following items:\n${itemsText}\nTotal: Ksh ${total}\nPlease confirm availability and provide delivery info.`;
+    
+    const bundlesText = bundleItems
+      .map((bundle) => `${bundle.name} x ${bundle.quantity} = Ksh ${bundle.price * bundle.quantity}`)
+      .join('\n');
+
+    return `Hello! I want to order the following items:\n${itemsText}\n${bundlesText}\nTotal: Ksh ${total}\nPlease confirm availability and provide delivery info.`;
   };
 
   useEffect(() => {
@@ -92,6 +103,8 @@ export default function Navbar() {
                 <span className="font-medium text-gray-700 group-hover:text-green-700 transition-colors">Home</span>
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-700 group-hover:w-full transition-all duration-300"></span>
               </Link>
+              
+              {/* About Link - Highlighted */}
               <Link href="/about" className="relative group py-2">
                 <span className="font-medium text-gray-700 group-hover:text-green-700 transition-colors">About</span>
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-700 group-hover:w-full transition-all duration-300"></span>
@@ -101,23 +114,8 @@ export default function Navbar() {
               <div className="relative group">
                 <Link href="/shop" className="relative group py-2 flex items-center">
                   <span className="font-medium text-gray-700 group-hover:text-green-700 transition-colors">Shop</span>
-                  <svg className="w-4 h-4 ml-1 text-gray-700 group-hover:text-green-700 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-700 group-hover:w-full transition-all duration-300"></span>
                 </Link>
-                <div className="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
-                  <div className="bg-white shadow-xl rounded-lg mt-2 py-2 w-48 border border-gray-100">
-                    <Link href="/shop#honey" className="block px-4 py-3 hover:bg-green-50 transition-colors text-gray-700 hover:text-green-700 font-medium">
-                      🍯 Honey
-                    </Link>
-                    <Link href="/shop#seeds" className="block px-4 py-3 hover:bg-green-50 transition-colors text-gray-700 hover:text-green-700 font-medium">
-                      🌱 Seeds
-                    </Link>
-                    <Link href="/shop#products" className="block px-4 py-3 hover:bg-green-50 transition-colors text-gray-700 hover:text-green-700 font-medium">
-                      🛍️ All Products
-                    </Link>
-                  </div>
-                </div>
               </div>
 
               <Link href="/contact" className="relative group py-2">
@@ -213,6 +211,8 @@ export default function Navbar() {
                     >
                       Home
                     </Link>
+                    
+                    {/* About Link - Highlighted */}
                     <Link 
                       href="/about" 
                       className="text-lg font-semibold text-gray-700 hover:text-green-700 transition-colors py-2 border-b border-gray-100"
@@ -220,6 +220,7 @@ export default function Navbar() {
                     >
                       About
                     </Link>
+                    
                     <Link 
                       href="/shop" 
                       className="text-lg font-semibold text-gray-700 hover:text-green-700 transition-colors py-2 border-b border-gray-100"
@@ -274,7 +275,7 @@ export default function Navbar() {
               <div className="flex justify-between items-center p-5 border-b border-gray-100" style={{ background: 'linear-gradient(to right, #f0fdf4, #d1fae5)' }}>
                 <div>
                   <h2 className="text-xl font-bold text-black">Your Cart</h2>
-                  <p className="text-sm text-black mt-1">{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}</p>
+                  <p className="text-sm text-black mt-1">{cartItems.length + bundleItems.length} {cartItems.length + bundleItems.length === 1 ? 'item' : 'items'}</p>
                 </div>
                 <button 
                   onClick={() => setCartOpen(false)}
@@ -286,7 +287,7 @@ export default function Navbar() {
 
               {/* Cart Items */}
               <div className="flex-1 overflow-y-auto p-5 space-y-4">
-                {cartItems.length === 0 ? (
+                {cartItems.length === 0 && bundleItems.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-center py-12">
                     <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -304,79 +305,158 @@ export default function Navbar() {
                     </Link>
                   </div>
                 ) : (
-                  cartItems.map((item) => (
-                    <div
-                      key={`${item.id}-${item.selectedWeight}`}
-                      className="bg-gray-50 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200"
-                      style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)' }}
-                    >
-                      <div className="flex gap-4">
-                        {/* Product Image */}
-                        <div className="relative">
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            width={70}
-                            height={70}
-                            className="object-cover rounded-lg"
-                          />
-                          <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-2 py-1 rounded-full">
-                            {item.selectedWeight}
-                          </span>
-                        </div>
-                        
-                        {/* Product Info */}
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-black">{item.name}</h3>
-                          <p className="text-sm text-black mt-1">Ksh {item.price} each</p>
+                  <>
+                    {/* Individual Products */}
+                    {cartItems.map((item) => (
+                      <div
+                        key={`${item.id}-${item.selectedWeight}`}
+                        className="bg-gray-50 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200"
+                        style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)' }}
+                      >
+                        <div className="flex gap-4">
+                          {/* Product Image */}
+                          <div className="relative">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              width={70}
+                              height={70}
+                              className="object-cover rounded-lg"
+                            />
+                            <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-2 py-1 rounded-full">
+                              {item.selectedWeight}
+                            </span>
+                          </div>
                           
-                          {/* Quantity Controls */}
-                          <div className="flex items-center gap-3 mt-3">
-                            <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+                          {/* Product Info */}
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-black">{item.name}</h3>
+                            <p className="text-sm text-black mt-1">Ksh {item.price} each</p>
+                            
+                            {/* Quantity Controls */}
+                            <div className="flex items-center gap-3 mt-3">
+                              <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+                                <button
+                                  className="p-1 hover:bg-gray-100 transition-colors"
+                                  onClick={() =>
+                                    updateQuantity(
+                                      item.id,
+                                      item.selectedWeight,
+                                      Math.max(1, item.quantity - 1)
+                                    )
+                                  }
+                                >
+                                  <MinusIcon className="w-4 h-4 text-black" />
+                                </button>
+                                <span className="px-3 py-1 font-medium text-black">{item.quantity}</span>
+                                <button
+                                  className="p-1 hover:bg-gray-100 transition-colors"
+                                  onClick={() =>
+                                    updateQuantity(item.id, item.selectedWeight, item.quantity + 1)
+                                  }
+                                >
+                                  <PlusIcon className="w-4 h-4 text-black" />
+                                </button>
+                              </div>
+                              
                               <button
-                                className="p-1 hover:bg-gray-100 transition-colors"
-                                onClick={() =>
-                                  updateQuantity(
-                                    item.id,
-                                    item.selectedWeight,
-                                    Math.max(1, item.quantity - 1)
-                                  )
-                                }
+                                className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                onClick={() => removeFromCart(item.id, item.selectedWeight)}
                               >
-                                <MinusIcon className="w-4 h-4 text-black" />
-                              </button>
-                              <span className="px-3 py-1 font-medium text-black">{item.quantity}</span>
-                              <button
-                                className="p-1 hover:bg-gray-100 transition-colors"
-                                onClick={() =>
-                                  updateQuantity(item.id, item.selectedWeight, item.quantity + 1)
-                                }
-                              >
-                                <PlusIcon className="w-4 h-4 text-black" />
+                                <TrashIcon className="w-5 h-5" />
                               </button>
                             </div>
-                            
-                            <button
-                              className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                              onClick={() => removeFromCart(item.id, item.selectedWeight)}
-                            >
-                              <TrashIcon className="w-5 h-5" />
-                            </button>
+                          </div>
+                          
+                          {/* Item Total */}
+                          <div className="text-right">
+                            <p className="font-bold text-black">Ksh {item.price * item.quantity}</p>
                           </div>
                         </div>
-                        
-                        {/* Item Total */}
-                        <div className="text-right">
-                          <p className="font-bold text-black">Ksh {item.price * item.quantity}</p>
+                      </div>
+                    ))}
+                    
+                    {/* Bundle Items */}
+                    {bundleItems.map((bundle) => (
+                      <div
+                        key={bundle.id}
+                        className="bg-green-50 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200 border border-green-200"
+                        style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)' }}
+                      >
+                        <div className="flex gap-4">
+                          {/* Bundle Image */}
+                          <div className="relative">
+                            <Image
+                              src={bundle.image}
+                              alt={bundle.name}
+                              width={70}
+                              height={70}
+                              className="object-cover rounded-lg"
+                            />
+                            <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-2 py-1 rounded-full">
+                              Bundle
+                            </span>
+                          </div>
+                          
+                          {/* Bundle Info */}
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-black">{bundle.name}</h3>
+                            {bundle.savings > 0 && (
+                              <p className="text-sm text-green-600 mt-1">Save Ksh {bundle.savings}</p>
+                            )}
+                            
+                            {/* Bundle Products */}
+                            <div className="text-xs text-gray-600 mt-1">
+                              {bundle.products.join(', ')}
+                            </div>
+                            
+                            {/* Quantity Controls */}
+                            <div className="flex items-center gap-3 mt-3">
+                              <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+                                <button
+                                  className="p-1 hover:bg-gray-100 transition-colors"
+                                  onClick={() =>
+                                    updateBundleQuantity(
+                                      bundle.id,
+                                      Math.max(1, bundle.quantity - 1)
+                                    )
+                                  }
+                                >
+                                  <MinusIcon className="w-4 h-4 text-black" />
+                                </button>
+                                <span className="px-3 py-1 font-medium text-black">{bundle.quantity}</span>
+                                <button
+                                  className="p-1 hover:bg-gray-100 transition-colors"
+                                  onClick={() =>
+                                    updateBundleQuantity(bundle.id, bundle.quantity + 1)
+                                  }
+                                >
+                                  <PlusIcon className="w-4 h-4 text-black" />
+                                </button>
+                              </div>
+                              
+                              <button
+                                className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                onClick={() => removeBundleFromCart(bundle.id)}
+                              >
+                                <TrashIcon className="w-5 h-5" />
+                              </button>
+                            </div>
+                          </div>
+                          
+                          {/* Bundle Total */}
+                          <div className="text-right">
+                            <p className="font-bold text-black">Ksh {bundle.price * bundle.quantity}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))
+                    ))}
+                  </>
                 )}
               </div>
 
               {/* Footer */}
-              {cartItems.length > 0 && (
+              {(cartItems.length > 0 || bundleItems.length > 0) && (
                 <div className="p-5 border-t border-gray-100" style={{ background: 'linear-gradient(to right, #f9fafb, #f3f4f6)' }}>
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-black font-medium">Subtotal</span>
