@@ -1,0 +1,16 @@
+# robots.txt for nyakazi.org
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://nyakazi.org/sitemap.xml
+
+# Crawl delay for crawlers
+Crawl-delay: 1
+
+# Host
+Host: https://nyakazi.org

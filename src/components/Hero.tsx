@@ -1,34 +1,44 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { PlayIcon, StarIcon, CheckCircleIcon, SparklesIcon } from '@heroicons/react/24/outline';
-import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import {
+  PlayIcon,
+  CheckCircleIcon,
+  ShieldCheckIcon,
+  TruckIcon,
+  CurrencyDollarIcon,
+} from "@heroicons/react/24/outline";
+import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
 
 export default function Hero() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [activeMetric, setActiveMetric] = useState<number | null>(null);
 
   const testimonials = [
     {
       name: "Sarah M.",
       location: "Nairobi",
-      text: "These indigenous vegetables have transformed my family's health. The quality is exceptional!",
-      rating: 5
+      text: "The dried managu and terere are a game changer for my busy schedule. Traditional taste, ready in minutes.",
+      rating: 5,
+      verifiedPurchase: true,
     },
     {
       name: "John K.",
       location: "Mombasa",
-      text: "Finally, authentic traditional vegetables that remind me of my grandmother's cooking.",
-      rating: 5
+      text: "Finally, authentic traditional vegetables that I can store for months. The oyster mushrooms are exceptional.",
+      rating: 5,
+      verifiedPurchase: true,
     },
     {
       name: "Grace W.",
       location: "Kisumu",
-      text: "I love supporting local farmers while getting nutritious food for my children.",
-      rating: 5
-    }
+      text: "I love supporting local farmers while having nutritious indigenous vegetables available year-round.",
+      rating: 5,
+      verifiedPurchase: true,
+    },
   ];
 
   useEffect(() => {
@@ -38,133 +48,330 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
+  const benefits = [
+    { icon: TruckIcon, text: "Free delivery on orders over Ksh 10,000" },
+    { icon: ShieldCheckIcon, text: "Quality guaranteed or your money back" },
+    { icon: CurrencyDollarIcon, text: "Fair prices directly from farmers" },
+  ];
+
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Hero Image - Full width and height coverage */}
+      {/* Hero Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/incubation.webp"
-          alt="Hero Image"
+          src="/images/mercyy.jpg"
+          alt="Dried indigenous African vegetables and oyster mushrooms from Nyakazi Organics"
           fill
           className="object-cover"
           priority
           sizes="100vw"
+          quality={85}
         />
       </div>
-      
-      {/* Gradient overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10"></div>
-      
-      {/* Floating badges - Hidden on small screens */}
-      <div className="absolute top-10 left-10 z-20 hidden lg:block">
-        <div className="bg-green-600/90 backdrop-blur-sm text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg animate-pulse">
-          <SparklesIcon className="w-5 h-5" />
-          <span className="font-semibold">100% Organic & Traditional</span>
-        </div>
-      </div>
-      
-      <div className="absolute top-10 right-10 z-20 hidden lg:block">
-        <div className="bg-white/90 backdrop-blur-sm text-green-700 px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-          <CheckCircleIcon className="w-5 h-5" />
-          <span className="font-semibold">Free Delivery on Orders Over Ksh 1000</span>
+
+      {/* Overlay layers for text readability - reduced opacity */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{ backgroundColor: "#1B4D1B", opacity: 0.4 }}
+      ></div>
+      <div
+        className="absolute inset-0 z-10"
+        style={{ backgroundColor: "#1A1A1A", opacity: 0.2 }}
+      ></div>
+
+      {/* Top Benefits Bar */}
+      <div
+        className="absolute top-0 left-0 right-0 z-20"
+        style={{ backgroundColor: "#1B4D1B" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex flex-wrap justify-center md:justify-between items-center gap-3 text-white text-sm">
+            {benefits.map((benefit, idx) => (
+              <div key={idx} className="flex items-center gap-2">
+                <benefit.icon
+                  className="w-4 h-4"
+                  style={{ color: "#DAA520" }}
+                />
+                <span className="hidden sm:inline text-white/90">
+                  {benefit.text}
+                </span>
+                <span className="sm:hidden text-xs text-white/90">
+                  {benefit.text.split(" ").slice(0, 3).join(" ")}...
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Content - Adjusted for mobile responsiveness */}
-      <div className="relative z-20 w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-20 sm:py-16 md:py-20 lg:py-24">
-        <div className="max-w-4xl xl:max-w-5xl mx-auto text-center">
-          {/* Trust indicators - Smaller on mobile */}
-          <div className="flex justify-center items-center gap-2 mb-4 sm:mb-6">
-            <div className="flex items-center">
+      {/* Main Content */}
+      <div className="relative z-20 w-full px-4 sm:px-6 lg:px-8 py-24 sm:py-28 md:py-32">
+        <div className="max-w-5xl mx-auto text-center">
+          {/* Social Proof Badge - no border */}
+          <div
+            className="inline-flex items-center gap-3 rounded-full px-4 py-2 mb-6"
+            style={{ backgroundColor: "#1B4D1B" }}
+          >
+            <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
-                <StarIconSolid key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
+                <StarIconSolid
+                  key={i}
+                  className="w-4 h-4"
+                  style={{ color: "#DAA520" }}
+                />
               ))}
             </div>
-            <span className="text-white font-medium text-sm sm:text-base">4.9/5 (500+ reviews)</span>
+            <span className="font-medium text-sm text-white">
+              Rated 4.9 out of 5
+            </span>
+            <span className="text-white/60 text-sm">|</span>
+            <span className="text-white/90 text-sm">500+ happy customers</span>
           </div>
-          
-          {/* Headline - Responsive sizing */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6 md:mb-8 drop-shadow-lg">
-            Rediscover the Power of <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">
-              Indigenous African Vegetables
+
+          {/* Headline */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
+            Preserving Kenya's Heritage
+            <span className="block mt-2" style={{ color: "#DAA520" }}>
+              Dried & Frozen Indigenous Vegetables
             </span>
           </h1>
-          
-          {/* Subheadline - Responsive sizing */}
-          <p className="text-white/95 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-6 sm:mb-8 md:mb-10 drop-shadow-md max-w-3xl mx-auto">
-            Sustainably grown using ancestral agroecological methods. Each leaf carries centuries of nutritional wisdom, 
-            supporting both your health and local farming communities.
+
+          {/* Subheadline */}
+          <p className="text-white/90 text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+            Nutrient-rich managu, terere, sagaa, and dried oyster mushrooms.
+            <span
+              className="block font-medium mt-2"
+              style={{ color: "#DAA520" }}
+            >
+              Solar-dehydrated to lock in flavor. 15-month shelf life. Ready in
+              minutes.
+            </span>
           </p>
 
-          {/* Buttons - Responsive layout */}
-          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 md:gap-5 mb-6 sm:mb-8">
-            <Link 
-              href="/shop" 
-              className="group px-6 py-3 sm:px-7 sm:py-3 md:px-8 md:py-4 lg:px-10 lg:py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 font-semibold text-sm sm:text-base md:text-lg lg:text-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-2"
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+            <Link
+              href="/shop"
+              className="px-8 py-4 rounded-lg transition-all duration-300 font-bold text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 min-w-[200px]"
+              style={{ backgroundColor: "#DAA520", color: "#1A1A1A" }}
             >
               Shop Now
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                style={{ color: "#1A1A1A" }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
               </svg>
             </Link>
-            
-            <button 
+
+            <button
               onClick={() => setVideoModalOpen(true)}
-              className="group px-6 py-3 sm:px-7 sm:py-3 md:px-8 md:py-4 lg:px-10 lg:py-4 bg-white/90 backdrop-blur-sm text-green-700 rounded-lg hover:bg-white transition-all duration-300 font-semibold text-sm sm:text-base md:text-lg lg:text-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-2"
+              className="px-8 py-4 rounded-lg transition-all duration-300 font-semibold text-base flex items-center justify-center gap-2 min-w-[200px]"
+              style={{ backgroundColor: "#5C3A1E", color: "#F5F5DC" }}
             >
-              <PlayIcon className="w-5 h-5" />
-              <span className="hidden sm:inline">Watch Our Story</span>
-              <span className="sm:hidden">Story</span>
+              <PlayIcon className="w-5 h-5" style={{ color: "#DAA520" }} />
+              Watch Our Story
             </button>
           </div>
 
-          {/* Testimonial Carousel - Hidden on very small screens */}
-          <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 max-w-2xl mx-auto mb-6 sm:mb-8 hidden md:block">
-            <div className="flex items-center justify-center mb-3">
-              {[...Array(5)].map((_, i) => (
-                <StarIconSolid key={i} className="w-4 h-4 text-yellow-400" />
-              ))}
+          {/* Guarantee - no border */}
+          <div className="flex justify-center mb-10">
+            <div
+              className="inline-flex items-center gap-2 rounded-lg px-4 py-2"
+              style={{ backgroundColor: "#1B4D1B" }}
+            >
+              <CheckCircleIcon
+                className="w-5 h-5"
+                style={{ color: "#DAA520" }}
+              />
+              <span className="text-sm text-white/90">
+                30-Day Satisfaction Guarantee
+              </span>
             </div>
-            <p className="text-white italic mb-3 text-sm sm:text-base">"{testimonials[currentTestimonial].text}"</p>
-            <p className="text-white/80 text-sm">- {testimonials[currentTestimonial].name}, {testimonials[currentTestimonial].location}</p>
           </div>
 
-          {/* Impact Metrics - Responsive layout */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 text-white max-w-2xl mx-auto">
-            <div className="text-center transform hover:scale-105 transition-transform duration-300 px-1 sm:px-2">
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-green-400">500+</h2>
-              <p className="text-xs sm:text-sm md:text-base">Farmers</p>
+          {/* Testimonial Carousel - no border */}
+          <div className="max-w-2xl mx-auto mb-10 hidden md:block">
+            <div
+              className="rounded-xl p-5 transition-all duration-500"
+              style={{ backgroundColor: "#1B4D1B" }}
+            >
+              <div className="flex items-center justify-center gap-1 mb-3">
+                {[...Array(testimonials[currentTestimonial].rating)].map(
+                  (_, i) => (
+                    <StarIconSolid
+                      key={i}
+                      className="w-4 h-4"
+                      style={{ color: "#DAA520" }}
+                    />
+                  ),
+                )}
+              </div>
+              <p className="text-white/90 text-base italic mb-3 leading-relaxed">
+                "{testimonials[currentTestimonial].text}"
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="font-medium text-sm text-white/90">
+                  - {testimonials[currentTestimonial].name},{" "}
+                  {testimonials[currentTestimonial].location}
+                </p>
+                {testimonials[currentTestimonial].verifiedPurchase && (
+                  <span
+                    className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full"
+                    style={{ backgroundColor: "#5C3A1E", color: "#DAA520" }}
+                  >
+                    <CheckCircleIcon className="w-3 h-3" />
+                    Verified Buyer
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="text-center transform hover:scale-105 transition-transform duration-300 px-1 sm:px-2">
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-green-400">1000+</h2>
-              <p className="text-xs sm:text-sm md:text-base">Kgs Sold</p>
+            <div className="flex justify-center gap-2 mt-3">
+              {testimonials.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentTestimonial(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    currentTestimonial === idx ? "w-6" : "w-1.5"
+                  }`}
+                  style={{
+                    backgroundColor:
+                      currentTestimonial === idx ? "#DAA520" : "#F5F5DC",
+                  }}
+                  aria-label={`View testimonial ${idx + 1}`}
+                />
+              ))}
             </div>
-            <div className="text-center transform hover:scale-105 transition-transform duration-300 px-1 sm:px-2">
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-green-400">50+</h2>
-              <p className="text-xs sm:text-sm md:text-base">Communities</p>
-            </div>
+          </div>
+
+          {/* Impact Metrics */}
+          <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+            {[
+              {
+                value: "150+",
+                label: "Partner Farmers",
+                description: "Supporting local agriculture",
+              },
+              {
+                value: "10+",
+                label: "Tonnes Processed",
+                description: "Annually",
+              },
+              {
+                value: "15",
+                label: "Month Shelf Life",
+                description: "Dried vegetables stay fresh",
+              },
+            ].map((metric, idx) => (
+              <div
+                key={idx}
+                className="text-center p-3 rounded-lg transition-all duration-300 cursor-default"
+                onMouseEnter={() => setActiveMetric(idx)}
+                onMouseLeave={() => setActiveMetric(null)}
+              >
+                <div
+                  className="text-2xl sm:text-3xl font-bold mb-1"
+                  style={{ color: "#DAA520" }}
+                >
+                  {metric.value}
+                </div>
+                <div className="text-xs sm:text-sm font-medium text-white/70">
+                  {metric.label}
+                </div>
+                {activeMetric === idx && (
+                  <div className="text-white/40 text-[10px] mt-1 transition-opacity duration-200">
+                    {metric.description}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Free Shipping Offer - no border */}
+          <div
+            className="mt-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+            style={{ backgroundColor: "#1B4D1B" }}
+          >
+            <span
+              className="text-xs font-semibold"
+              style={{ color: "#DAA520" }}
+            >
+              First Order:
+            </span>
+            <span className="text-xs text-white/80">
+              Free delivery with code: NYAKAZI
+            </span>
           </div>
         </div>
       </div>
 
       {/* Video Modal */}
       {videoModalOpen && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={() => setVideoModalOpen(false)}>
-          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
-            <div className="p-4 border-b flex justify-between items-center">
-              <h3 className="text-xl font-bold text-gray-800">Our Story</h3>
-              <button 
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "#1A1A1A", opacity: 0.95 }}
+          onClick={() => setVideoModalOpen(false)}
+        >
+          <div
+            className="rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+            style={{ backgroundColor: "#F5F5DC" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="p-4 border-b flex justify-between items-center"
+              style={{ borderBottomColor: "#DAA520" }}
+            >
+              <h3 className="text-lg font-bold" style={{ color: "#1B4D1B" }}>
+                Our Story
+              </h3>
+              <button
                 onClick={() => setVideoModalOpen(false)}
-                className="p-1 rounded-full hover:bg-gray-100"
+                className="p-2 rounded-full transition-colors"
+                style={{ backgroundColor: "#F5F5DC" }}
+                aria-label="Close video"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  style={{ color: "#1A1A1A" }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
-            <div className="aspect-video bg-gray-200 flex items-center justify-center">
-              <p className="text-gray-500">Video would be embedded here</p>
+            <div
+              className="aspect-video flex items-center justify-center"
+              style={{ backgroundColor: "#1B4D1B" }}
+            >
+              <div className="text-center p-8">
+                <p className="mb-4 text-white/70">
+                  From farm to dehydration - preserving Kenya's indigenous
+                  vegetables
+                </p>
+                <Link
+                  href="/shop"
+                  className="inline-block px-6 py-2 rounded-lg transition-colors"
+                  style={{ backgroundColor: "#DAA520", color: "#1A1A1A" }}
+                  onClick={() => setVideoModalOpen(false)}
+                >
+                  Shop Dried Vegetables
+                </Link>
+              </div>
             </div>
           </div>
         </div>

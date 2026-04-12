@@ -23,16 +23,20 @@ export interface CartItem {
   image: string;
   price: number;
   quantity: number;
-  selectedWeight: '50g' | '100g';
+  selectedWeight: "50g" | "100g";
 }
 
 export interface CartContextType {
   cartItems: CartItem[];
   totalItems: number;
   totalPrice: number;
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (item: Omit<CartItem, "quantity">) => void;
   removeFromCart: (id: number, selectedWeight: string) => void;
-  updateQuantity: (id: number, selectedWeight: string, quantity: number) => void;
+  updateQuantity: (
+    id: number,
+    selectedWeight: string,
+    quantity: number,
+  ) => void;
   clearCart: () => void;
 }
 
