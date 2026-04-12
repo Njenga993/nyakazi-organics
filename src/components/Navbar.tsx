@@ -41,7 +41,7 @@ export default function Navbar() {
     cartItems.reduce((sum, item) => sum + item.quantity, 0) +
     bundleItems.reduce((sum, bundle) => sum + bundle.quantity, 0);
 
-  const whatsappNumber = "+254712345678";
+  const whatsappNumber = "+254718105412"; // Replace with your number
 
   const generateWhatsAppMessage = () => {
     const itemsText = cartItems
