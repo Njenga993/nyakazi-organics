@@ -3,20 +3,23 @@
 import Hero from "@/components/Hero";
 import ProductsSection from "@/components/ProductsSection";
 import Testimonials from "@/components/Testimonials";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   SparklesIcon,
   ShieldCheckIcon,
   TruckIcon,
   HeartIcon,
-  ArrowDownIcon,
   PlayIcon,
   CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const videoSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,11 +33,53 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const handlePlayVideo = () => {
+    if (isVideoPlaying) return; // Prevent multiple clicks
+
+    setIsVideoPlaying(true);
+
+    // Use setTimeout to ensure state update is processed
+    setTimeout(() => {
+      if (videoContainerRef.current) {
+        // Clear container safely
+        while (videoContainerRef.current.firstChild) {
+          videoContainerRef.current.removeChild(
+            videoContainerRef.current.firstChild,
+          );
+        }
+
+        // Create and append iframe
+        const iframe = document.createElement("iframe");
+        iframe.setAttribute(
+          "src",
+          "https://www.youtube.com/embed/JjG-pl3N54Q?start=255&autoplay=1&rel=0&modestbranding=1&showinfo=0",
+        );
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute(
+          "allow",
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+        );
+        iframe.setAttribute("allowfullscreen", "true");
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.position = "absolute";
+        iframe.style.top = "0";
+        iframe.style.left = "0";
+        iframe.style.borderRadius = "0.75rem";
+        iframe.style.border = "none";
+
+        videoContainerRef.current.appendChild(iframe);
+      }
+    }, 10);
+  };
+
+  const handleWatchStoryClick = () => {
+    handlePlayVideo();
+    // Smooth scroll to video section
+    videoSectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   };
 
   return (
@@ -281,8 +326,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Video Section */}
-      <section className="py-20" style={{ backgroundColor: "#F5F5DC" }}>
+      {/* Video Section - FIXED */}
+      <section
+        ref={videoSectionRef}
+        className="py-20"
+        style={{ backgroundColor: "#F5F5DC" }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -349,20 +398,62 @@ export default function Home() {
                 </div>
               </div>
               <button
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-colors font-semibold"
+                onClick={handleWatchStoryClick}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-colors font-semibold hover:opacity-90"
                 style={{ backgroundColor: "#1B4D1B", color: "#F5F5DC" }}
               >
                 <PlayIcon className="w-5 h-5" style={{ color: "#DAA520" }} />
                 Watch Our Story
               </button>
             </div>
+
+            {/* Video Container - FIXED */}
             <div className="relative rounded-xl overflow-hidden shadow-xl">
-              <div
-                className="aspect-video flex items-center justify-center"
-                style={{ backgroundColor: "#5C3A1E" }}
-              >
-                <p style={{ color: "#F5F5DC" }}>Video placeholder</p>
-              </div>
+              {!isVideoPlaying ? (
+                // Thumbnail with play button (shown before playing)
+                <div
+                  className="relative aspect-video w-full cursor-pointer group"
+                  onClick={handlePlayVideo}
+                  style={{ backgroundColor: "#5C3A1E" }}
+                >
+                  <Image
+                    src="/images/all_pro.jpeg"
+                    alt="Nyakazi Organics - Our Journey"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
+                  >
+                    <div className="text-center">
+                      <div
+                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110"
+                        style={{ backgroundColor: "#1B4D1B" }}
+                      >
+                        <PlayIcon
+                          className="w-10 h-10 sm:w-12 sm:h-12 ml-1"
+                          style={{ color: "#DAA520" }}
+                        />
+                      </div>
+                      <p
+                        className="text-lg sm:text-xl font-medium"
+                        style={{ color: "#F5F5DC" }}
+                      >
+                        Click to Watch
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // YouTube iframe (shown after clicking play)
+                <div
+                  ref={videoContainerRef}
+                  className="relative aspect-video w-full"
+                  style={{ backgroundColor: "#000" }}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -371,7 +462,7 @@ export default function Home() {
       {/* Testimonials */}
       <Testimonials />
 
-      {/* Call to Action Section - no gradient */}
+      {/* Call to Action Section */}
       <section
         className="py-20 text-white"
         style={{ backgroundColor: "#1B4D1B" }}
@@ -390,14 +481,14 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/shop"
-              className="px-8 py-3 rounded-lg transition-colors font-semibold"
+              className="px-8 py-3 rounded-lg transition-colors font-semibold hover:opacity-90"
               style={{ backgroundColor: "#F5F5DC", color: "#1B4D1B" }}
             >
               Shop Now
             </Link>
             <Link
               href="/about"
-              className="px-8 py-3 border-2 rounded-lg transition-colors font-semibold"
+              className="px-8 py-3 border-2 rounded-lg transition-colors font-semibold hover:opacity-90"
               style={{ borderColor: "#F5F5DC", color: "#F5F5DC" }}
             >
               Learn More

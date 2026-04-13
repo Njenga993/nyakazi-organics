@@ -171,15 +171,6 @@ export default function Hero() {
                 />
               </svg>
             </Link>
-
-            <button
-              onClick={() => setVideoModalOpen(true)}
-              className="px-8 py-4 rounded-lg transition-all duration-300 font-semibold text-base flex items-center justify-center gap-2 min-w-[200px]"
-              style={{ backgroundColor: "#5C3A1E", color: "#F5F5DC" }}
-            >
-              <PlayIcon className="w-5 h-5" style={{ color: "#DAA520" }} />
-              Watch Our Story
-            </button>
           </div>
 
           {/* Guarantee - no border */}
