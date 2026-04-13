@@ -7,6 +7,7 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Replace this with your actual portfolio URL
   const portfolioUrl = "https://njenga993.github.io/kspace/";
@@ -21,6 +22,7 @@ export default function Footer() {
   };
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 300);
     };
@@ -32,11 +34,26 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Prevent hydration mismatch by not rendering dynamic content until mounted
+  if (!mounted) {
+    return (
+      <footer
+        className="relative mt-20 w-full"
+        style={{ backgroundColor: "#1B4D1B" }}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-10 py-16">
+          {/* Placeholder content while mounting */}
+          <div style={{ minHeight: "600px" }} />
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <>
       <footer
         className="relative mt-20 w-full"
-        style={{ backgroundColor: "#1B4D1B" }}
+        style={{ backgroundColor: "#1B4D1B", marginTop: "1rem" }}
       >
         {/* Main footer content */}
         <div className="max-w-7xl mx-auto px-6 md:px-10 py-16">
@@ -409,6 +426,9 @@ export default function Footer() {
                     color: "#1A1A1A",
                   }}
                   required
+                  autoComplete="email"
+                  name="email"
+                  id="footer-email"
                 />
                 <button
                   type="submit"

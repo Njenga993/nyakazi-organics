@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import ProductsSection from "@/components/ProductsSection";
 import Testimonials from "@/components/Testimonials";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   SparklesIcon,
   ShieldCheckIcon,
@@ -387,20 +388,20 @@ export default function Home() {
             rediscovering the power of traditional African nutrition.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
+            <Link
               href="/shop"
               className="px-8 py-3 rounded-lg transition-colors font-semibold"
               style={{ backgroundColor: "#F5F5DC", color: "#1B4D1B" }}
             >
               Shop Now
-            </a>
-            <a
+            </Link>
+            <Link
               href="/about"
               className="px-8 py-3 border-2 rounded-lg transition-colors font-semibold"
               style={{ borderColor: "#F5F5DC", color: "#F5F5DC" }}
             >
               Learn More
-            </a>
+            </Link>
           </div>
         </div>
       </section>
