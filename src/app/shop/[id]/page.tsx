@@ -1,4 +1,5 @@
 // src/app/shop/[id]/page.tsx
+
 import { products } from "@/data/products";
 import ProductDetail from "./ProductDetail";
 
