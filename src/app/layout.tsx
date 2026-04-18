@@ -53,7 +53,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://nyakazi.org",
-    title: "Home - Nyakazi Organics | Fresh Indigenous African Vegetables",
+    title:
+      "Home - Nyakazi Organics | Frozen & Dried Indigenous African Vegetables",
     description:
       "Discover the nutritional power of indigenous African vegetables. Sustainably grown, organic, and delivered fresh from Kenyan farms. Revitalize your health with traditional African nutrition.",
     siteName: "Nyakazi Organics",
@@ -62,13 +63,14 @@ export const metadata: Metadata = {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Nyakazi Organics - Fresh Indigenous African Vegetables from Kenya",
+        alt: "Nyakazi Organics - Frozen & Dried Indigenous African Vegetables from Kenya",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Home - Nyakazi Organics | Indigenous African Vegetables",
+    title:
+      "Home - Nyakazi Organics | Frozen & Dried Indigenous African Vegetables",
     description:
       "Fresh, organic indigenous African vegetables sustainably grown in Kenya. Discover traditional nutrition with modern convenience. Shop now!",
     images: ["/images/og-image.jpg"],
@@ -178,19 +180,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
 
         {/* Favicon - Nyakazi Organics */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"

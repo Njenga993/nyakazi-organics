@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /__next__/
+Disallow: /_next/
 Disallow: /admin/
 Disallow: /api/
 
