@@ -67,9 +67,9 @@ export default function ContactPage() {
     {
       icon: PhoneIcon,
       label: "Phone",
-      value: "+254 718 105 412",
+      value: "+254 792 533 935",
       description: "Mon-Fri: 9AM - 5PM",
-      action: "tel:+254718105412",
+      action: "tel:+254792533935",
     },
     {
       icon: EnvelopeIcon,
@@ -88,9 +88,9 @@ export default function ContactPage() {
     {
       icon: ChatBubbleLeftRightIcon,
       label: "WhatsApp",
-      value: "+254 718 105 412",
+      value: "+254 792 533 935",
       description: "Chat with us instantly",
-      action: "https://wa.me/254718105412",
+      action: "https://wa.me/254792533935",
     },
   ];
 
@@ -484,7 +484,7 @@ export default function ContactPage() {
                       Delivery Information
                     </h3>
                     <p style={{ color: "#5C3A1E" }}>
-                      • Nairobi: Same day delivery (order before 12 PM)
+                      • Nakuru: Same day delivery (order before 12 PM)
                       <br />
                       • Major towns: 1-2 business days
                       <br />• Nationwide: 2-3 business days

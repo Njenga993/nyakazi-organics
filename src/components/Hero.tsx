@@ -286,7 +286,7 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Free Shipping Offer - no border */}
+          {/* Free Shipping Offer - no border 
           <div
             className="mt-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5"
             style={{ backgroundColor: "#1B4D1B" }}
@@ -300,7 +300,7 @@ export default function Hero() {
             <span className="text-xs text-white/80">
               Free delivery with code: NYAKAZI
             </span>
-          </div>
+          </div>*/}
         </div>
       </div>
 
