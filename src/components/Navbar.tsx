@@ -43,22 +43,37 @@ export default function Navbar() {
 
   const whatsappNumber = "+254792533935"; // Replace with your number
 
+  // IMPROVED WhatsApp order message
   const generateWhatsAppMessage = () => {
-    const itemsText = cartItems
-      .map(
-        (item) =>
-          `${item.name} x ${item.quantity} = Ksh ${item.price * item.quantity}`,
-      )
-      .join("\n");
+    let message = `💚 Hello Nyakazi Organics!\n\nI'd like to place an order for:\n`;
 
-    const bundlesText = bundleItems
-      .map(
-        (bundle) =>
-          `${bundle.name} x ${bundle.quantity} = Ksh ${bundle.price * bundle.quantity}`,
-      )
-      .join("\n");
+    // Individual Products
+    if (cartItems.length > 0) {
+      message += `🥬 Individual Items:\n`;
+      const itemsText = cartItems
+        .map(
+          (item) =>
+            `• ${item.name} ${item.selectedWeight} x ${item.quantity} ${item.quantity === 1 ? "piece" : "pieces"} = Ksh ${item.price * item.quantity}`
+        )
+        .join("\n");
+      message += itemsText + "\n\n";
+    }
 
-    return `Hello! I want to order the following items:\n${itemsText}\n${bundlesText}\nTotal: Ksh ${total}\nPlease confirm availability and provide delivery info.`;
+    // Bundle Products
+    if (bundleItems.length > 0) {
+      message += `📦 Bundles:\n`;
+      const bundlesText = bundleItems
+        .map(
+          (bundle) =>
+            `• ${bundle.name} (${bundle.products.join(", ")}) x ${bundle.quantity} ${bundle.quantity === 1 ? "set" : "sets"} = Ksh ${bundle.price * bundle.quantity}`
+        )
+        .join("\n");
+      message += bundlesText + "\n\n";
+    }
+
+    message += `━━━━━━━━━━━━━━\n💰 Total: Ksh ${total.toLocaleString()}\n━━━━━━━━━━━━━━\n\nPlease confirm availability and I will provide delivery details. Thank you!`;
+
+    return message;
   };
 
   useEffect(() => {

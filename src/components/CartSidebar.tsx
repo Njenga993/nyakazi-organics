@@ -26,22 +26,20 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   );
   const whatsappNumber = "+254718105412"; // Replace with your number
 
-  // WhatsApp order message
+  // WhatsApp order message - IMPROVED FORMAT
   const generateWhatsAppMessage = () => {
     const itemsText = cartItems
       .map(
         (item) =>
-          `🛒 ${item.name} (${item.selectedWeight}) x ${item.quantity} = Ksh ${
-            item.price * item.quantity
-          }`,
+          `• ${item.name} ${item.selectedWeight} x ${item.quantity} ${item.quantity === 1 ? "piece" : "pieces"} = Ksh ${item.price * item.quantity}`,
       )
       .join("%0A");
 
-    return `💚 Hello Nyakazi Organics!%0A
-I would like to order the following items:%0A
- ${itemsText}%0A
-✅ Total: Ksh ${total}%0A
-Please confirm availability and I will provide delivery info. Thank you!`;
+    return `💚 Hello Nyakazi Organics!
+
+I would like to order:%0A%0A${itemsText}%0A%0A✅ Total: Ksh ${total}
+
+Please confirm availability and I will provide delivery details. Thank you!`;
   };
 
   return (
