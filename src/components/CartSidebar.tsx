@@ -52,7 +52,7 @@ ${itemsText}
  *Total: Ksh ${total}*
 
  Please confirm availability and share delivery details.
-Thank you!`;
+Thank you! `;
   };
 
   return (

@@ -61,7 +61,7 @@ export default function Navbar() {
     const bundlesText = bundleItems
       .map(
         (bundle, i) =>
-          `${cartItems.length + i + 1}.  ${bundle.name}\n   Qty: ${bundle.quantity} × Ksh ${bundle.price} = *Ksh ${bundle.price * bundle.quantity}*\n   Includes: ${bundle.products.join(", ")}`,
+          `${cartItems.length + i + 1}. 📦 ${bundle.name}\n   Qty: ${bundle.quantity} × Ksh ${bundle.price} = *Ksh ${bundle.price * bundle.quantity}*\n   Includes: ${bundle.products.join(", ")}`,
       )
       .join("\n");
 
@@ -76,8 +76,8 @@ ${allItems}
 ──────────────────
  *Total: Ksh ${total}*
 
-Please confirm availability and share delivery details.
-Thank you!`;
+ Please confirm availability and share delivery details.
+Thank you! `;
   };
 
   useEffect(() => {
@@ -98,7 +98,7 @@ Thank you!`;
             <div className="p-2 bg-white/10 rounded-full group-hover:bg-white/20 transition-colors">
               <PhoneIcon className="w-4 h-4" />
             </div>
-            <span className="font-medium">+254 792 533 935</span>
+            <span className="font-medium">+254 718 105 412</span>
           </div>
 
           <div className="flex-1 text-center">
