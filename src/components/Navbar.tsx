@@ -98,7 +98,7 @@ Thank you! `;
             <div className="p-2 bg-white/10 rounded-full group-hover:bg-white/20 transition-colors">
               <PhoneIcon className="w-4 h-4" />
             </div>
-            <span className="font-medium">+254 718 105 412</span>
+            <span className="font-medium">+254 792 533 925</span>
           </div>
 
           <div className="flex-1 text-center">
