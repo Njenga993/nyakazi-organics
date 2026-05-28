@@ -59,7 +59,7 @@ export default function Hero() {
       {/* Hero Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/mercyy.jpg"
+          src="/images/all_pro.jpeg"
           alt="Dried indigenous African vegetables and oyster mushrooms from Nyakazi Organics"
           fill
           className="object-cover"
@@ -130,21 +130,20 @@ export default function Hero() {
 
           {/* Headline */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
-            Preserving Kenya's Heritage
+            Eat What Kenya Grew Up On.
             <span className="block mt-2" style={{ color: "#DAA520" }}>
-              Dried & Frozen Indigenous Vegetables
+              Real Food. Real Nutrition. Right to Your Door.
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-white/90 text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
-            Nutrient-rich managu, terere, sagaa, and dried oyster mushrooms.
+            Managu, terere, saaga & oyster mushrooms  no preservatives, no shortcuts.
             <span
               className="block font-medium mt-2"
               style={{ color: "#DAA520" }}
             >
-              Solar-dehydrated to lock in flavor. 15-month shelf life. Ready in
-              minutes.
+              Solar-dried at peak nutrition  ready in minutes, ships in 2 days.
             </span>
           </p>
 
@@ -184,7 +183,7 @@ export default function Hero() {
                 style={{ color: "#DAA520" }}
               />
               <span className="text-sm text-white/90">
-                30-Day Satisfaction Guarantee
+                Not happy? Full refund within 30 days  no questions asked.
               </span>
             </div>
           </div>
@@ -286,7 +285,7 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Free Shipping Offer - no border */}
+          {/* Free Shipping Offer - no border 
           <div
             className="mt-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5"
             style={{ backgroundColor: "#1B4D1B" }}
@@ -300,7 +299,7 @@ export default function Hero() {
             <span className="text-xs text-white/80">
               Free delivery with code: NYAKAZI
             </span>
-          </div>
+          </div>*/}
         </div>
       </div>
 
@@ -351,7 +350,7 @@ export default function Hero() {
             >
               <div className="text-center p-8">
                 <p className="mb-4 text-white/70">
-                  From farm to dehydration - preserving Kenya's indigenous
+                  From farm to dehydration  preserving Kenya's indigenous
                   vegetables
                 </p>
                 <Link

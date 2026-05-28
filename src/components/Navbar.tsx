@@ -41,24 +41,43 @@ export default function Navbar() {
     cartItems.reduce((sum, item) => sum + item.quantity, 0) +
     bundleItems.reduce((sum, bundle) => sum + bundle.quantity, 0);
 
-  const whatsappNumber = "+254718105412"; // Replace with your number
+  const whatsappNumber = "+254792533935";
 
   const generateWhatsAppMessage = () => {
+    const date = new Date().toLocaleDateString("en-KE", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
     const itemsText = cartItems
       .map(
-        (item) =>
-          `${item.name} x ${item.quantity} = Ksh ${item.price * item.quantity}`,
+        (item, i) =>
+          `${i + 1}. ${item.name} (${item.selectedWeight})\n   Qty: ${item.quantity} × Ksh ${item.price} = *Ksh ${item.price * item.quantity}*`,
       )
       .join("\n");
 
     const bundlesText = bundleItems
       .map(
-        (bundle) =>
-          `${bundle.name} x ${bundle.quantity} = Ksh ${bundle.price * bundle.quantity}`,
+        (bundle, i) =>
+          `${cartItems.length + i + 1}.  ${bundle.name}\n   Qty: ${bundle.quantity} × Ksh ${bundle.price} = *Ksh ${bundle.price * bundle.quantity}*\n   Includes: ${bundle.products.join(", ")}`,
       )
       .join("\n");
 
-    return `Hello! I want to order the following items:\n${itemsText}\n${bundlesText}\nTotal: Ksh ${total}\nPlease confirm availability and provide delivery info.`;
+    const allItems = [itemsText, bundlesText].filter(Boolean).join("\n");
+
+    return ` *New Order – Nyakazi Organics*
+ ${date}
+
+*ORDER SUMMARY*
+──────────────────
+${allItems}
+──────────────────
+ *Total: Ksh ${total}*
+
+Please confirm availability and share delivery details.
+Thank you!`;
   };
 
   useEffect(() => {
@@ -79,7 +98,7 @@ export default function Navbar() {
             <div className="p-2 bg-white/10 rounded-full group-hover:bg-white/20 transition-colors">
               <PhoneIcon className="w-4 h-4" />
             </div>
-            <span className="font-medium">+254 718 105 412</span>
+            <span className="font-medium">+254 792 533 935</span>
           </div>
 
           <div className="flex-1 text-center">

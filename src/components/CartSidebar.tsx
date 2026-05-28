@@ -24,24 +24,35 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
-  const whatsappNumber = "+254718105412"; // Replace with your number
 
-  // WhatsApp order message
+  const whatsappNumber = "+254792533935";
+
   const generateWhatsAppMessage = () => {
+    const date = new Date().toLocaleDateString("en-KE", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
     const itemsText = cartItems
       .map(
-        (item) =>
-          `🛒 ${item.name} (${item.selectedWeight}) x ${item.quantity} = Ksh ${
-            item.price * item.quantity
-          }`,
+        (item, i) =>
+          `${i + 1}. ${item.name} (${item.selectedWeight})\n   Qty: ${item.quantity} × Ksh ${item.price} = *Ksh ${item.price * item.quantity}*`,
       )
-      .join("%0A");
+      .join("\n");
 
-    return `💚 Hello Nyakazi Organics!%0A
-I would like to order the following items:%0A
- ${itemsText}%0A
-✅ Total: Ksh ${total}%0A
-Please confirm availability and I will provide delivery info. Thank you!`;
+    return ` *New Order – Nyakazi Organics*
+ ${date}
+
+*ORDER SUMMARY*
+──────────────────
+${itemsText}
+──────────────────
+ *Total: Ksh ${total}*
+
+ Please confirm availability and share delivery details.
+Thank you!`;
   };
 
   return (
@@ -298,10 +309,9 @@ Please confirm availability and I will provide delivery info. Thank you!`;
                 </div>
 
                 <a
-                  href={`https://wa.me/${whatsappNumber.replace("+", "")}?text=${encodeURIComponent(
-                    generateWhatsAppMessage(),
-                  )}`}
+                  href={`https://wa.me/${whatsappNumber.replace("+", "")}?text=${encodeURIComponent(generateWhatsAppMessage())}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-lg transition-all duration-200 font-semibold shadow-md"
                   style={{
                     background: "linear-gradient(to right, #059669, #10b981)",
