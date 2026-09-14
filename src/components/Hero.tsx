@@ -121,6 +121,7 @@ export default function Hero() {
                 />
               ))}
             </div>
+            
             <span className="font-medium text-sm text-white">
               Rated 4.9 out of 5
             </span>
