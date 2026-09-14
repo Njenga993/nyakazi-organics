@@ -67,9 +67,9 @@ export default function ContactPage() {
     {
       icon: PhoneIcon,
       label: "Phone",
-      value: "+254 792 533 935",
+      value: "+254 711 198 746",
       description: "Mon-Fri: 9AM - 5PM",
-      action: "tel:+254792533935",
+      action: "tel:+254711198746",
     },
     {
       icon: EnvelopeIcon,
@@ -88,9 +88,9 @@ export default function ContactPage() {
     {
       icon: ChatBubbleLeftRightIcon,
       label: "WhatsApp",
-      value: "+254 792 533 935",
+      value: "+254 711 198 746",
       description: "Chat with us instantly",
-      action: "https://wa.me/254792533935",
+      action: "https://wa.me/254711198746",
     },
   ];
 

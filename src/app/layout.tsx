@@ -114,7 +114,7 @@ const jsonLd = {
     "Fresh, organic indigenous African vegetables grown using sustainable agroecological methods. Supporting local farmers and preserving Kenya's agricultural heritage.",
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+254718105412",
+    telephone: "+254711198746",
     contactType: "customer service",
     availableLanguage: ["en", "sw"],
     email: "info@nyakazi.org",

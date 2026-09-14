@@ -463,7 +463,7 @@ export default function Footer() {
                   <span className="font-medium" style={{ color: "#DAA520" }}>
                     Phone:
                   </span>{" "}
-                  +254 792 533 935 
+                  +254 711 198 746 
                 </p>
                 <p>
                   <span className="font-medium" style={{ color: "#DAA520" }}>
