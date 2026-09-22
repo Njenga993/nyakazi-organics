@@ -41,7 +41,7 @@ export default function Navbar() {
     cartItems.reduce((sum, item) => sum + item.quantity, 0) +
     bundleItems.reduce((sum, bundle) => sum + bundle.quantity, 0);
 
-  const whatsappNumber = "+254792533935";
+  const whatsappNumber = "+254711198746"; // Replace with your actual WhatsApp number
 
   const generateWhatsAppMessage = () => {
     const date = new Date().toLocaleDateString("en-KE", {

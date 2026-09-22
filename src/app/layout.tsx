@@ -108,8 +108,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Nyakazi Organics",
-  url: "https://nyakazi.org",
-  logo: "https://nyakazi.org/images/logo_processed.jpg",
+  url: "https://www.nyakaziorganics.org",
+  logo: "https://www.nyakaziorganics.org/images/logo_processed.jpg",
   description:
     "Fresh, organic indigenous African vegetables grown using sustainable agroecological methods. Supporting local farmers and preserving Kenya's agricultural heritage.",
   contactPoint: {
@@ -147,10 +147,10 @@ const homePageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Nyakazi Organics",
-  url: "https://nyakazi.org",
+  url: "https://www.nyakaziorganics.org",
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://nyakazi.org/search?q={search_term_string}",
+    target: "https://www.nyakaziorganics.org/search?q={search_term_string}",
     "query-input": "required name=search_term_string",
   },
   description:

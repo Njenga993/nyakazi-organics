@@ -5,6 +5,6 @@ Disallow: /_next/
 Disallow: /admin/
 Disallow: /api/
 
-Sitemap: https://nyakazi.org/sitemap.xml
+Sitemap: https://www.nyakaziorganics.org/sitemap.xml
 
 # Crawl-delay: 10

@@ -25,7 +25,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
     0,
   );
 
-  const whatsappNumber = "+254792533935";
+  const whatsappNumber = "+254711198746"; // Replace with your actual WhatsApp number
 
   const generateWhatsAppMessage = () => {
     const date = new Date().toLocaleDateString("en-KE", {
