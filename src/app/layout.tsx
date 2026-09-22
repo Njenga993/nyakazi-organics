@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "dried vegetables",
     "vegetable powders",
   ],
-  authors: [{ name: "Nyakazi Organics", url: "https://nyakazi.org" }],
+  authors: [{ name: "Nyakazi Organics", url: "https://www.nyakaziorganics.org" }],
   creator: "Nyakazi Organics",
   publisher: "Nyakazi Organics",
   formatDetection: {
@@ -45,14 +45,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://nyakazi.org"),
+  metadataBase: new URL("https://www.nyakaziorganics.org/"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nyakazi.org",
+    url: "https://www.nyakaziorganics.org",
     title:
       "Home - Nyakazi Organics | Frozen & Dried Indigenous African Vegetables",
     description:
