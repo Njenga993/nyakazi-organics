@@ -1,10 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /__next__/
-Disallow: /_next/
+
 Disallow: /admin/
 Disallow: /api/
 
 Sitemap: https://www.nyakaziorganics.org/sitemap.xml
-
-# Crawl-delay: 10
