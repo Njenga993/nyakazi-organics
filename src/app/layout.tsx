@@ -161,8 +161,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* Structured data for SEO */}
+        {/* Google Search Console verification */}
         <meta name="google-site-verification" content="N02oK6ckHONroVblBAJufUcLAfFhzlzz3tu3wVH6LIs" />
+        <meta name="google-site-verification" content="URkmYh2nDRwTmIbTgcvNrg7bM1LPsqncF-guFvSSDC4" />
+
+        {/* Structured data for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
